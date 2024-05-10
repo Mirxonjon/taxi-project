@@ -210,7 +210,7 @@ export class JobServise {
         where: {
           id: userId
         }
-      }).catch(e =>console.log(e))
+      }).catch(e =>console.log(e ,'aaaaaa'))
 
       if (!findDriver) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);

@@ -8,6 +8,7 @@ export class DriverEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
+    nullable: true
   })
   name: string;
 

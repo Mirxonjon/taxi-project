@@ -8,6 +8,8 @@ export class UserEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
+    nullable: true
+
   })
   name: string;
 
