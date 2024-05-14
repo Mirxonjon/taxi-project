@@ -6,11 +6,8 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
-  Param,
   Patch,
   Post,
-  Request,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -101,7 +98,7 @@ export class userController {
   }
 
   @UseGuards(jwtGuard) 
-  @Post('create')
+  @Post('trip/create')
   @HttpCode(HttpStatus.CREATED)
   @ApiBody({
     schema: {
@@ -112,11 +109,11 @@ export class userController {
       properties: {
         id_trip: {
           type: 'string',
-          default: 'Toshkent',
+          default: 'afcasdnvfgjinvrrfgv45s64fg5refgv',
         },
         passenger: {
           type: 'string',
-          default: 'Toshkent',
+          default: '4',
         },
       },
     },
@@ -124,6 +121,10 @@ export class userController {
   @ApiCreatedResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
+  @ApiOperation({
+    description:
+      "yo'lovchi joy band qilishi uchun api",
+  })
   async create(
     @Body() createTripDto: CreateTripDto,
     @Headers() header: CustomHeaders

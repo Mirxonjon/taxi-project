@@ -53,6 +53,10 @@ export class JobController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
+  @ApiOperation({
+    description:
+      "yo'lovchini barcha sayohatlari",
+  })
   async findAllmyTrips( @Headers() header: CustomHeaders, ) {   
     return await this.#_service.findAllmyTrips( header);
   }
@@ -62,6 +66,10 @@ export class JobController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
+  @ApiOperation({
+    description:
+      "Haydovchini  barcha sayohatlari",
+  })
   async findAllDrivermyTrips( @Headers() header: CustomHeaders, ) {   
     return await this.#_service.findAllDrivermyTrips( header);
   }
