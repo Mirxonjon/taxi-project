@@ -1,6 +1,5 @@
 import { IsString, IsNotEmpty, MaxLength } from 'class-validator';
 
-
 export class UpdateTripDto {
   @IsString()
   from_the_region: string;
@@ -25,5 +24,4 @@ export class UpdateTripDto {
 
   @IsString()
   passenger: string;
-
 }

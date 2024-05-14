@@ -5,5 +5,5 @@ export class CreateTripDto {
   id_trip: string;
 
   @IsString()
-  passenger: string
+  passenger: string;
 }

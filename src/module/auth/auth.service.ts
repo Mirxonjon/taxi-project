@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SingInUserDto } from './dto/sign_in-user.dto';
@@ -34,13 +30,13 @@ export class AuthServise {
       .into(UserEntity)
       .values({
         email: createUser.email,
-        password :createUser.password
+        password: createUser.password,
       })
       .returning(['id'])
       .execute()
       .catch((e) => {
         console.log(e);
-        
+
         throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
       });
 
@@ -53,14 +49,14 @@ export class AuthServise {
   async createDriver(createUser: CreateUserDto) {
     const findUser = await DriverEntity.findOne({
       where: {
-        email: createUser.email ,
+        email: createUser.email,
         password: createUser.password,
       },
     }).catch((e) => {
       throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
     });
     console.log(findUser);
-    
+
     if (findUser) {
       throw new HttpException(
         'name or Number already registered',
@@ -73,13 +69,13 @@ export class AuthServise {
       .into(DriverEntity)
       .values({
         email: createUser.email,
-        password :createUser.password
+        password: createUser.password,
       })
       .returning(['id'])
       .execute()
       .catch((e) => {
         console.log(e);
-        
+
         throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
       });
 
@@ -108,7 +104,7 @@ export class AuthServise {
     };
   }
 
-  async  signInDriver(signInDto: SingInUserDto) {
+  async signInDriver(signInDto: SingInUserDto) {
     const finduser = await DriverEntity.findOne({
       where: {
         email: signInDto.email,

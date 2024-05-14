@@ -43,42 +43,37 @@ export class JobController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
-  async findOne(@Param('id') id: string , @Headers() header: CustomHeaders, ) {   
-    return await this.#_service.findOne(id , header);
+  async findOne(@Param('id') id: string, @Headers() header: CustomHeaders) {
+    return await this.#_service.findOne(id, header);
   }
 
-
-  
   @Get('/User/myTrips')
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
   @ApiOperation({
-    description:
-      "yo'lovchini barcha sayohatlari",
+    description: "yo'lovchini barcha sayohatlari",
   })
-  async findAllmyTrips( @Headers() header: CustomHeaders, ) {   
-    return await this.#_service.findAllmyTrips( header);
+  async findAllmyTrips(@Headers() header: CustomHeaders) {
+    return await this.#_service.findAllmyTrips(header);
   }
-
 
   @Get('/drive/myTrips')
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
   @ApiOperation({
-    description:
-      "Haydovchini  barcha sayohatlari",
+    description: 'Haydovchini barcha sayohatlari',
   })
-  async findAllDrivermyTrips( @Headers() header: CustomHeaders, ) {   
-    return await this.#_service.findAllDrivermyTrips( header);
+  async findAllDrivermyTrips(@Headers() header: CustomHeaders) {
+    return await this.#_service.findAllDrivermyTrips(header);
   }
-  
+
   @Get('/all')
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
-  @ApiOperation({ description : 'Sayohatlarni qidirish uchun qilish uchun'})
+  @ApiOperation({ description: 'Sayohatlarni qidirish uchun qilish uchun' })
   async findsort(
     @Headers() header: CustomHeaders,
     @Query('from_the_region') title: string,
@@ -88,13 +83,19 @@ export class JobController {
     @Query('date') popular: string,
     @Query('passenger') pageNumber: number,
   ) {
-    return await this.#_service.findsort(header, title ,orgname,salary , salary_type , popular ,pageNumber );
+    return await this.#_service.findsort(
+      header,
+      title,
+      orgname,
+      salary,
+      salary_type,
+      popular,
+      pageNumber,
+    );
   }
   // header: CustomHeaders,  from_the_region: string , from_the_district: string , to_the_region : string  , to_the_district : string , date : string , passenger = 1
 
-
-
-  @UseGuards(jwtGuard) 
+  @UseGuards(jwtGuard)
   @Post('create')
   @HttpCode(HttpStatus.CREATED)
   @ApiBody({
@@ -150,16 +151,13 @@ export class JobController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async create(
-    @Request() req :CustomRequest ,
+    @Request() req: CustomRequest,
     @Body() createTripDto: CreateTripDto,
-    @Headers() header: CustomHeaders
+    @Headers() header: CustomHeaders,
   ) {
     console.log(req.userId);
-    
-    return await this.#_service.create(
-      header ,
-      createTripDto
-    );
+
+    return await this.#_service.create(header, createTripDto);
   }
 
   @UseGuards(jwtGuard)
@@ -206,14 +204,8 @@ export class JobController {
   })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
-  async update(
-    @Param('id') id: string,
-    @Body() updateTripDto: UpdateTripDto,
-  ) {
-    await this.#_service.update(
-      id,
-      updateTripDto,
-    );
+  async update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
+    await this.#_service.update(id, updateTripDto);
   }
 
   @UseGuards(jwtGuard)

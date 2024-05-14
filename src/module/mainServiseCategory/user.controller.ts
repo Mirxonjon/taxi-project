@@ -44,7 +44,7 @@ export class userController {
   @ApiOkResponse()
   async findOne(@Headers() header: CustomHeaders) {
     console.log('okkk');
-    
+
     return await this.#_service.findOne(header);
   }
 
@@ -73,7 +73,7 @@ export class userController {
         },
         image_link: {
           type: 'string',
-           format: 'binary',
+          format: 'binary',
         },
       },
     },
@@ -82,30 +82,26 @@ export class userController {
   @ApiOperation({ summary: 'Attendance Punch In' })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
-  @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'image' }]),
-  )
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'image' }]))
   async update(
     @Headers() header: CustomHeaders,
     @Body() updatePartnerDto: UpdateUserDto,
-    files: { image?: Express.Multer.File; },
+    files: { image?: Express.Multer.File },
   ) {
     await this.#_service.update(
-      header ,
+      header,
       updatePartnerDto,
       files?.image ? files?.image[0] : null,
     );
   }
 
-  @UseGuards(jwtGuard) 
+  @UseGuards(jwtGuard)
   @Post('trip/create')
   @HttpCode(HttpStatus.CREATED)
   @ApiBody({
     schema: {
       type: 'object',
-      required: [
-        'id_trip',
-      ],
+      required: ['id_trip'],
       properties: {
         id_trip: {
           type: 'string',
@@ -122,18 +118,13 @@ export class userController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOperation({
-    description:
-      "yo'lovchi joy band qilishi uchun api",
+    description: "yo'lovchi joy band qilishi uchun api",
   })
   async create(
     @Body() createTripDto: CreateTripDto,
-    @Headers() header: CustomHeaders
+    @Headers() header: CustomHeaders,
   ) {
-    
-    return await this.#_service.createTrip(
-      header ,
-      createTripDto
-    );
+    return await this.#_service.createTrip(header, createTripDto);
   }
 
   @UseGuards(jwtGuard)
@@ -142,9 +133,7 @@ export class userController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiNoContentResponse()
-  async remove(
-    @Headers() header: CustomHeaders,
-  ): Promise<void> {
+  async remove(@Headers() header: CustomHeaders): Promise<void> {
     await this.#_service.remove(header);
   }
 }

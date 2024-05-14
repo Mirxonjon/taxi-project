@@ -32,6 +32,4 @@ export class CreateTripDto {
   @IsString()
   @IsNotEmpty()
   passenger: string;
-
-
 }

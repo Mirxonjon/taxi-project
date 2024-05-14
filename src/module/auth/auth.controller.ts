@@ -15,7 +15,7 @@ export class AuthController {
   @ApiBody({
     schema: {
       type: 'object',
-      required: ['email',  'password'],
+      required: ['email', 'password'],
       properties: {
         email: {
           type: 'string',
@@ -37,7 +37,7 @@ export class AuthController {
   @ApiBody({
     schema: {
       type: 'object',
-      required: ['email',  'password'],
+      required: ['email', 'password'],
       properties: {
         email: {
           type: 'string',

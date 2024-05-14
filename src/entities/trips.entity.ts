@@ -12,7 +12,6 @@ import {
 import { UserEntity } from './user.entity';
 import { DriverEntity } from './driver.entity';
 
-
 @Entity()
 export class TripEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -20,21 +19,21 @@ export class TripEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
-  }) 
+  })
   from_the_region: string;
 
   @Column({
-      type: 'character varying',
+    type: 'character varying',
   })
   from_the_district: string;
 
   @Column({
     type: 'character varying',
-  }) 
+  })
   to_the_region: string;
 
   @Column({
-      type: 'character varying',
+    type: 'character varying',
   })
   to_the_district: string;
 
@@ -44,7 +43,7 @@ export class TripEntity extends BaseEntity {
   date: Date;
 
   @Column({
-      type: 'bigint',
+    type: 'bigint',
   })
   price: number;
 
@@ -56,22 +55,20 @@ export class TripEntity extends BaseEntity {
   @Column({
     type: 'bigint',
   })
-  passenger : number;
-
+  passenger: number;
 
   @Column({
     type: 'boolean',
-    default : true
+    default: true,
   })
   isActive: boolean;
 
-  @ManyToMany(() => UserEntity, user => user.trips)
+  @ManyToMany(() => UserEntity, (user) => user.trips)
   @JoinTable()
-  userInfo: UserEntity[]
+  userInfo: UserEntity[];
 
-      
-  @ManyToOne(()  => DriverEntity , trip => trip.trips)
-  driver: DriverEntity
+  @ManyToOne(() => DriverEntity, (trip) => trip.trips)
+  driver: DriverEntity;
 
   // @ManyToOne(()  => UserEntity , user => user.trips)
   // driver: DriversEntity[]
@@ -81,5 +78,4 @@ export class TripEntity extends BaseEntity {
 
   @CreateDateColumn({ name: 'created_at' })
   create_data: Date;
-
 }

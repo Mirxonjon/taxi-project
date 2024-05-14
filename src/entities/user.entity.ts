@@ -1,5 +1,13 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import {  TripEntity } from './trips.entity';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { TripEntity } from './trips.entity';
 
 @Entity()
 export class UserEntity extends BaseEntity {
@@ -8,8 +16,7 @@ export class UserEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
-    nullable: true
-
+    nullable: true,
   })
   name: string;
 
@@ -26,26 +33,24 @@ export class UserEntity extends BaseEntity {
 
   @Column({
     type: 'character varying',
-    nullable: true
+    nullable: true,
   })
   image_link: string;
 
   @Column({
     type: 'character varying',
-    nullable :true
+    nullable: true,
   })
   phone: string;
 
   @Column({
     type: 'character varying',
-    default: 'user'
+    default: 'user',
   })
   role: string;
 
-  
-  @ManyToMany(()  => TripEntity , jobs => jobs.userInfo)
-  trips: TripEntity[]
-
+  @ManyToMany(() => TripEntity, (jobs) => jobs.userInfo)
+  trips: TripEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   create_data: Date;

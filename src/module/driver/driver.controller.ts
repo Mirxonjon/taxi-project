@@ -56,8 +56,6 @@ export class DriverController {
     return await this.#_service.findTrips(header);
   }
 
-
-
   @UseGuards(jwtGuard)
   @Patch('/update')
   @HttpCode(HttpStatus.NO_CONTENT)
@@ -79,7 +77,7 @@ export class DriverController {
         },
         image_link: {
           type: 'string',
-           format: 'binary',
+          format: 'binary',
         },
       },
     },
@@ -88,16 +86,14 @@ export class DriverController {
   @ApiOperation({ summary: 'Attendance Punch In' })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
-  @UseInterceptors(
-    FileFieldsInterceptor([{ name: 'image' }]),
-  )
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'image' }]))
   async update(
     @Headers() header: CustomHeaders,
     @Body() updatePartnerDto: UpdateUserDto,
-    files: { image?: Express.Multer.File; },
+    files: { image?: Express.Multer.File },
   ) {
     await this.#_service.update(
-      header ,
+      header,
       updatePartnerDto,
       files?.image ? files?.image[0] : null,
     );
@@ -109,9 +105,7 @@ export class DriverController {
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiNoContentResponse()
-  async remove(
-    @Headers() header: CustomHeaders,
-  ): Promise<void> {
+  async remove(@Headers() header: CustomHeaders): Promise<void> {
     await this.#_service.remove(header);
   }
 }
