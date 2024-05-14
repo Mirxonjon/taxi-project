@@ -13,7 +13,6 @@ export class UpdateUserDto {
   email: string;
 
   @IsString()
-  @MaxLength(200)
   phone: string;
 
 }

@@ -8,7 +8,7 @@ import { AuthModule } from './module/auth/auth.module';
 import {  userModule } from './module/mainServiseCategory/user.module';
 
 import { DriverModule } from './module/driver/driver.module';
-import { TripModule } from './module/trips/job.module';
+import { TripModule } from './module/trips/trip.module';
 
 @Module({
   imports: [

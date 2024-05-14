@@ -59,7 +59,8 @@ export class AuthServise {
     }).catch((e) => {
       throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
     });
-
+    console.log(findUser);
+    
     if (findUser) {
       throw new HttpException(
         'name or Number already registered',
@@ -69,7 +70,7 @@ export class AuthServise {
 
     const addedUser = await DriverEntity.createQueryBuilder()
       .insert()
-      .into(UserEntity)
+      .into(DriverEntity)
       .values({
         email: createUser.email,
         password :createUser.password
@@ -77,6 +78,8 @@ export class AuthServise {
       .returning(['id'])
       .execute()
       .catch((e) => {
+        console.log(e);
+        
         throw new HttpException('Bad Request ', HttpStatus.BAD_REQUEST);
       });
 

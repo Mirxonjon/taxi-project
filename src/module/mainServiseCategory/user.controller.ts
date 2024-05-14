@@ -46,6 +46,8 @@ export class userController {
   @ApiNotFoundResponse()
   @ApiOkResponse()
   async findOne(@Headers() header: CustomHeaders) {
+    console.log('okkk');
+    
     return await this.#_service.findOne(header);
   }
 
@@ -63,6 +65,10 @@ export class userController {
         password: {
           type: 'string',
           default: '123',
+        },
+        phone: {
+          type: 'string',
+          default: '12322',
         },
         email: {
           type: 'string',
@@ -105,6 +111,10 @@ export class userController {
       ],
       properties: {
         id_trip: {
+          type: 'string',
+          default: 'Toshkent',
+        },
+        passenger: {
           type: 'string',
           default: 'Toshkent',
         },

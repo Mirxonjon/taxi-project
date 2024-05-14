@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { DriverEntity } from 'src/entities/driver.entity';
 import {  UserEntity } from 'src/entities/user.entity';
 import { CustomRequest } from 'src/types';
 
@@ -32,15 +33,28 @@ export class jwtStrategy extends PassportStrategy(Strategy) {
       },
     }).catch(e => console.log(e)
     );
-    console.log( payload ,findUser , 'aaaaaaaaa' );
-    
 
-    if (!findUser) {
+    const findDriver = await DriverEntity.findOne({
+      where: {
+        id: payload.id ,  
+      },
+    }).catch(e => console.log(e)
+    );
+
+    if (findUser ) {
+      request.userId  = findUser.id 
+
+    
+      return findUser.id;
+    } else if (findDriver ) {
+      request.userId  = findDriver.id
+
+    
+      return findDriver.id;
+    } else {
       throw new HttpException('You are not login', HttpStatus.NOT_FOUND);
-    }
-    request.userId  = findUser.id 
 
-    
-    return findUser.id;
+    }
+
   }
 }

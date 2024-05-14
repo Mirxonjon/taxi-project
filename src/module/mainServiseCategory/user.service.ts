@@ -21,10 +21,13 @@ export class userServise {
     this.#_auth = auth;
   }
   async findOne(header: CustomHeaders  ) {
-
+    console.log(header);
+    
     if(header.authorization){
       const data =await this.#_auth.verify(header.authorization.split(' ')[1]);
       const userId = data.id
+      console.log(userId , data);
+      
       const findUser = await UserEntity.findOne({ 
         where :{
           id : userId
@@ -40,10 +43,12 @@ export class userServise {
       }).catch(() => {
         throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
       });
+      console.log('okk' , findUser);
+      
       if (!findUser) {
         throw new HttpException('user not found', HttpStatus.NOT_FOUND);
       }
-  return findUser
+    return findUser
 
     }
     
@@ -110,12 +115,15 @@ export class userServise {
 
         const data = await this.#_auth.verify(header.authorization.split(' ')[1]);
         const userId = data.id 
+        
         const findUser = await UserEntity.findOne({
           where: {
             id: userId
           }
         }).catch(e =>console.log(e))
   
+  
+        
         if (!findUser) {
           throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         }
@@ -127,23 +135,30 @@ export class userServise {
         if(!findTrip) {
           throw new HttpException('Trip not found', HttpStatus.NOT_FOUND);
         }
-        if(findTrip.passenger < +body.passenger ) {
-
-          const updateduser = await getConnection().createQueryBuilder()
+        console.log(findTrip.passenger);
+        
+        if(findTrip.passenger >= +body.passenger ) {
+          
+          console.log(findUser,'okkk');
+          const updateduser = await TripEntity.createQueryBuilder()
           .relation(TripEntity, 'userInfo')
           .of(findTrip)
-          .add(findUser);
-
-          const updated = await TripEntity.update(findTrip.id, {
-            passenger: +body.passenger - +body.passenger,
+          .add(findUser.id).catch(e => {console.log(e)
+            throw new HttpException('bad request' , HttpStatus.BAD_REQUEST)
           });
+          console.log(updateduser, +findTrip.passenger - +body.passenger);
+          const updated = await TripEntity.update(findTrip.id, {
+            passenger:  findTrip.passenger - +body.passenger,
+          });
+          return updated
+        } else {
+          throw new HttpException('Sizni sayohatingiz uchun joy yetarli emas' , HttpStatus.BAD_REQUEST)
         } 
-
-        
     } else {
       throw new HttpException('UNAUTHORIZED', HttpStatus.UNAUTHORIZED);
     }
   }
+  
   async remove(header: CustomHeaders) {
     if(header.authorization){
       const data =await this.#_auth.verify(header.authorization.split(' ')[1]);

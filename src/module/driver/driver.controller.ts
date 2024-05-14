@@ -48,6 +48,16 @@ export class DriverController {
     return await this.#_service.findOne(header);
   }
 
+  @Get('myTrips/one')
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @ApiOkResponse()
+  async findTrips(@Headers() header: CustomHeaders) {
+    return await this.#_service.findTrips(header);
+  }
+
+
+
   @UseGuards(jwtGuard)
   @Patch('/update')
   @HttpCode(HttpStatus.NO_CONTENT)

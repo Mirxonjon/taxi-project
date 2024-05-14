@@ -9,6 +9,8 @@ import { UserEntity } from 'src/entities/user.entity';
 import { UpdateUserDto } from './dto/update_driver.dto';
 import { CustomHeaders } from 'src/types';
 import { AuthServise } from '../auth/auth.service';
+import { DriverEntity } from 'src/entities/driver.entity';
+import { TripEntity } from 'src/entities/trips.entity';
 
 @Injectable()
 export class DriverServise {
@@ -21,8 +23,10 @@ export class DriverServise {
 
     if(header.authorization){
       const data =await this.#_auth.verify(header.authorization.split(' ')[1]);
+      console.log(data);
+      
       const userId = data.id
-      const findUser = await UserEntity.findOne({ 
+      const findUser = await DriverEntity.findOne({ 
         where :{
           id : userId
         } ,
@@ -37,11 +41,45 @@ export class DriverServise {
       }).catch(() => {
         throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
       });
+      console.log(findUser);
+      
       if (!findUser) {
-        throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('driver not found', HttpStatus.NOT_FOUND);
       }
   return findUser
 
+    }
+    
+  
+  }
+
+  async findTrips(header: CustomHeaders ) {
+
+    if(header.authorization){
+      const data =await this.#_auth.verify(header.authorization.split(' ')[1]);
+      
+      const userId = data.id
+      const findTrips = await TripEntity.find({ 
+        where :{
+          driver : {
+            id :userId
+          }
+        } ,
+        order : {
+            create_data : 'desc'
+              },
+        relations : {
+          driver :true
+        }
+      }).catch(() => {
+        throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+      });
+      console.log(findTrips);
+      
+      if (!findTrips) {
+        throw new HttpException('trips not found', HttpStatus.NOT_FOUND);
+      }
+  return findTrips
     }
     
   

@@ -25,11 +25,11 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { JobServise } from './job.service';
+import { JobServise } from './trip.service';
 import { jwtGuard } from '../auth/guards/jwt.guard';
 import { CustomHeaders, CustomRequest } from 'src/types';
-import { CreateTripDto } from './dto/create_job.dto';
-import { UpdateTripDto } from './dto/update_job.dto';
+import { CreateTripDto } from './dto/create_trip.dto';
+import { UpdateTripDto } from './dto/update_trip.dto';
 @Controller('trip')
 @ApiTags('trip')
 @ApiBearerAuth('JWT-auth')
@@ -47,22 +47,30 @@ export class JobController {
     return await this.#_service.findOne(id , header);
   }
 
+
   
+  @Get('/User/myTrips')
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @ApiOkResponse()
+  async findAllmyTrips( @Headers() header: CustomHeaders, ) {   
+    return await this.#_service.findAllmyTrips( header);
+  }
 
-  // @Get('/all')
-  // @ApiBadRequestResponse()
-  // @ApiNotFoundResponse()
-  // @ApiOkResponse()
-  // async findAll() {
-  //   return await this.#_service.findAll();
-  // }
 
+  @Get('/drive/myTrips')
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @ApiOkResponse()
+  async findAllDrivermyTrips( @Headers() header: CustomHeaders, ) {   
+    return await this.#_service.findAllDrivermyTrips( header);
+  }
   
   @Get('/all')
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @ApiOkResponse()
-  // @ApiOperation({ description : 'Bitta operatorni ish grafikini olish uchun Api. Login ga operator dasturga kirish raqami kiritiladi'})
+  @ApiOperation({ description : 'Sayohatlarni qidirish uchun qilish uchun'})
   async findsort(
     @Headers() header: CustomHeaders,
     @Query('from_the_region') title: string,
@@ -75,21 +83,7 @@ export class JobController {
     return await this.#_service.findsort(header, title ,orgname,salary , salary_type , popular ,pageNumber );
   }
   // header: CustomHeaders,  from_the_region: string , from_the_district: string , to_the_region : string  , to_the_district : string , date : string , passenger = 1
-  @Get('/all/myjobs')
-  @ApiBadRequestResponse()
-  @UseGuards(jwtGuard) 
-  @ApiNotFoundResponse()
-  @ApiOkResponse()
 
-  async findsortmyjobs(
-    @Query('pageNumber') pageNumber: number,
-    @Query('pageSize') pageSize: number,
-    @Headers() header: CustomHeaders
-  ) {
-    // console.log('okk ' , req.userId);
-    
-    return await this.#_service.findsortmyjobs(header ,pageNumber ,pageSize);
-  }
 
 
   @UseGuards(jwtGuard) 
