@@ -48,17 +48,8 @@ export class DriverEntity extends BaseEntity {
   })
   role: string;
 
-  //   @OneToMany(()  => CarEntity , resume => resume.driver)
-  //   car_info: CarEntity[]
-
   @OneToMany(() => TripEntity, (jobs) => jobs.driver)
   trips: TripEntity[];
-
-  // @OneToMany(()  => LikesEntity , likes => likes.userLiked)
-  // mylikes: LikesEntity[]
-
-  // @OneToMany(()  => ResponseEntity , responses => responses.responsed_user)
-  // responses: ResponseEntity[]
 
   @CreateDateColumn({ name: 'created_at' })
   create_data: Date;

@@ -66,7 +66,6 @@ export class DriverServise {
       }).catch(() => {
         throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
       });
-      console.log(findTrips);
 
       if (!findTrips) {
         throw new HttpException('trips not found', HttpStatus.NOT_FOUND);

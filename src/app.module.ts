@@ -4,11 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from './config';
 import { connectDb } from './config/typeorm';
 import { AuthModule } from './module/auth/auth.module';
-
-import { userModule } from './module/mainServiseCategory/user.module';
-
 import { DriverModule } from './module/driver/driver.module';
 import { TripModule } from './module/trips/trip.module';
+import { userModule } from './module/user/user.module';
 
 @Module({
   imports: [

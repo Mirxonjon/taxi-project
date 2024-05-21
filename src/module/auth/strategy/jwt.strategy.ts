@@ -23,7 +23,6 @@ export class jwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, @Request() request: CustomRequest) {
-    console.log(await payload.id, 'aaaa');
 
     const findUser = await UserEntity.findOne({
       where: {

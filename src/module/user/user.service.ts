@@ -118,16 +118,14 @@ export class userServise {
       console.log(findTrip.passenger);
 
       if (findTrip.passenger >= +body.passenger) {
-        console.log(findUser, 'okkk');
+
         const updateduser = await TripEntity.createQueryBuilder()
           .relation(TripEntity, 'userInfo')
           .of(findTrip)
           .add(findUser.id)
           .catch((e) => {
-            console.log(e);
             throw new HttpException('bad request', HttpStatus.BAD_REQUEST);
           });
-        console.log(updateduser, +findTrip.passenger - +body.passenger);
         const updated = await TripEntity.update(findTrip.id, {
           passenger: findTrip.passenger - +body.passenger,
         });

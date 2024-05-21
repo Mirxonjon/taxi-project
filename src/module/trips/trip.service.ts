@@ -41,6 +41,8 @@ export class JobServise {
       throw new HttpException('UNAUTHORIZED', HttpStatus.UNAUTHORIZED);
     }
   }
+
+  //userni barcha sayohatlari
   async findAllmyTrips(header: CustomHeaders) {
     if (header.authorization) {
       const data = await this.#_auth.verify(header.authorization.split(' ')[1]);
@@ -68,7 +70,7 @@ export class JobServise {
       throw new HttpException('UNAUTHORIZED', HttpStatus.UNAUTHORIZED);
     }
   }
-
+  //driver ni barcha sayohatlari
   async findAllDrivermyTrips(header: CustomHeaders) {
     if (header.authorization) {
       const data = await this.#_auth.verify(header.authorization.split(' ')[1]);

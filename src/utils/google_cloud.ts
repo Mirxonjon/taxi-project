@@ -23,7 +23,7 @@ export const googleCloud = async (file: any | any[]) => {
   blobStream.end(a[0]?.buffer);
   return imageLink;
 };
-
+// response qaytgandan keyin ishlashi kerak
 export const googleCloudAsync = async (file: any | any[]): Promise<string> => {
   const a: any[] = [];
   a.push(file);

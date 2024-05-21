@@ -70,11 +70,6 @@ export class TripEntity extends BaseEntity {
   @ManyToOne(() => DriverEntity, (trip) => trip.trips)
   driver: DriverEntity;
 
-  // @ManyToOne(()  => UserEntity , user => user.trips)
-  // driver: DriversEntity[]
-
-  // @OneToMany(()  => ResponseEntity , responses => responses.responsed_job )
-  // responses: JobsEntity[]
 
   @CreateDateColumn({ name: 'created_at' })
   create_data: Date;
