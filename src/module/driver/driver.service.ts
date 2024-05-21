@@ -122,7 +122,7 @@ export class DriverServise {
     if (header.authorization) {
       const data = await this.#_auth.verify(header.authorization.split(' ')[1]);
       const userId = data.id;
-      const findUser = await UserEntity.findOne({
+      const findUser = await DriverEntity.findOne({
         where: { id: userId },
       });
 
@@ -130,7 +130,7 @@ export class DriverServise {
         throw new HttpException('user not found', HttpStatus.NOT_FOUND);
       }
 
-      await UserEntity.delete({ id: findUser.id });
+      await DriverEntity.delete({ id: findUser.id });
     }
   }
 }
